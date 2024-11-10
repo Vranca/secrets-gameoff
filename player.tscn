@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://pqfe8a05ny65"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_2t1ev"]
+[ext_resource type="Texture2D" uid="uid://bfndgwaj75t0s" path="res://swimming.png" id="1_nli1y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8e2l"]
+atlas = ExtResource("1_nli1y")
+region = Rect2(0, 0, 24, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlf1i"]
+atlas = ExtResource("1_nli1y")
+region = Rect2(0, 15, 24, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_foyp8"]
+atlas = ExtResource("1_nli1y")
+region = Rect2(0, 30, 24, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2hey"]
+atlas = ExtResource("1_nli1y")
+region = Rect2(0, 45, 24, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nvqjo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8e2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlf1i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_foyp8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2hey")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_85nb2"]
+
+[node name="Player" type="Area2D"]
+position = Vector2(30, 200)
+script = ExtResource("1_2t1ev")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_nvqjo")
+animation = &"swim"
+frame_progress = 0.790939
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_85nb2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
